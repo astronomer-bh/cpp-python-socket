@@ -80,7 +80,7 @@ void MQPIf::disconnect()
 
 
 //////////////////////////////////////////////////////////////////////////////
-bool MQPIf::sendOne(MQPIF_MsgType type, const void *msg, const int msg_len)
+bool MQPIf::sendOne(const void *msg, const int msg_len)
 {
 	if (!connected) {
 		::strcpy(result, "Not Connected");
@@ -97,10 +97,6 @@ bool MQPIf::sendOne(MQPIF_MsgType type, const void *msg, const int msg_len)
 	sigaction(SIGPIPE, &act, &oact);
 
 	try {
-		// Send msg type
-		if (::send(socket, &type, 1, 0) != 1)
-			throw "Unable to send msg type";
-
 		// Send msg length
 		char	length[16];
 		::sprintf(length, "%d\n", msg_len);

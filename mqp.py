@@ -3,26 +3,12 @@ import SocketServer
 
 # This is a python2 file
 
-def doCameraMsg(self):
+def interpretMsg(self, size):
     while True:
-	datastream = self.request.recv()#was 56 inside the thing
+	datastream = self.request.recv(size)
 	print datastream.split(',')
         break
-        
-def doLidarMsg(self):
-    while True:
-	"""
-	theta = self.request.recv(8)
-	distance = self.request.recv(8)
-	quality = self.request.recv(8)
-	print "datastream = ", theta, ",", distance, ",", quality
-	print "theta = ", theta
-	print "distance = ", distance
-	print "quality = ", quality
-	"""
-	datastream = self.request.recv(1024)
-	print datastream.split(',')
-	break
+
 
 class MyTCPHandler(SocketServer.BaseRequestHandler):
     """
@@ -35,10 +21,6 @@ class MyTCPHandler(SocketServer.BaseRequestHandler):
 
     def handle(self):
         while True:
-            msg_type = self.request.recv(1).strip()
-            if not msg_type:
-                break
-
             length = 0
             while True:
                 c = self.request.recv(1).strip()
@@ -49,26 +31,27 @@ class MyTCPHandler(SocketServer.BaseRequestHandler):
                 else:
                     break
 
-            #print "msg_type = ", msg_type
-            #print "length = ", length # = 56 for camera, 24 for lidar
-            if msg_type == 'C':
-                doCameraMsg(self)
-		continue
-            elif msg_type == 'L':
-                doLidarMsg(self)
-		continue
+            print "length = ", length # = 56 for camera, 24 for lidar
+            if length > 0:
+                interpretMsg(self, length)
+            else:
+                break
             #print "c = ", c
             #print length
             #data = self.request.recv(length)
             #print "full msg data: ", data
 
         print "done"
+        quit()
+
 
 if __name__ == "__main__":
     HOST, PORT = "localhost", 9999
 
     # Create the server, binding to localhost on port 9999
     server = SocketServer.TCPServer((HOST, PORT), MyTCPHandler)
+
+    print "listening on port %i.  Press Ctrl-C to quit" %PORT
 
     # Activate the server; this will keep running until you
     # interrupt the program with Ctrl-C

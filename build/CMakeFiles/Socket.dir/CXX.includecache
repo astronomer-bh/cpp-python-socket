@@ -23,6 +23,8 @@ errno.h
 -
 sstream
 -
+unistd.h
+-
 mqpipc.h
 /home/parallels/workspace/socket/src/mqpipc.h
 mqpif.h

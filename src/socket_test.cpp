@@ -4,6 +4,8 @@
 #include <errno.h>
 #include <sstream>
 
+#include <unistd.h>   // This is only for sleep
+
 #include "mqpipc.h"
 #include "mqpif.h"
 
@@ -39,7 +41,8 @@ int main(int argc, char *argv[]){
 		mqpif.connect(host, port);
 
 		for (int i = 1;; i++){
-			mqpif.sendOne(MQPIF_CAMERA, str.c_str(), str.length() + 1);
+			mqpif.sendOne(str.c_str(), str.length());
+			sleep(1);
 		}
 
 		mqpif.disconnect();

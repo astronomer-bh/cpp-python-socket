@@ -3,10 +3,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-enum MQPIF_MsgType {
-	MQPIF_CAMERA			= 'C',
-	MQPIF_LIDAR				= 'L',
-};
+
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -26,7 +23,7 @@ public:
 	bool connect(const char * const host, const int port);
 	void disconnect();
 
-	bool sendOne(MQPIF_MsgType type, const void *msg, const int msg_len);
+	bool sendOne(const void *msg, const int msg_len);
 
 	const char * getResult()			{ return result; }
 };
