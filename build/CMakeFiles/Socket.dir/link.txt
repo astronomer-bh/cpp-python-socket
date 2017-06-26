@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/Socket.dir/socket_test.cpp.o CMakeFiles/Socket.dir/mqpif.cpp.o  -o Socket -rdynamic 

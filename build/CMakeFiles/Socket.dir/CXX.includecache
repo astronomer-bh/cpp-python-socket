@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/parallels/workspace/socket/src/mqpif.h
+
+/home/parallels/workspace/socket/src/mqpipc.h
+string.h
+-
+
+/home/parallels/workspace/socket/src/socket_test.cpp
+iostream
+-
+getopt.h
+-
+stdlib.h
+-
+errno.h
+-
+sstream
+-
+mqpipc.h
+/home/parallels/workspace/socket/src/mqpipc.h
+mqpif.h
+/home/parallels/workspace/socket/src/mqpif.h
+
